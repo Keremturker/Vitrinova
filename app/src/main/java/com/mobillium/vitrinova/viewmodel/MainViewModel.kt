@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonArray
-import com.mobillium.vitrinova.model.Categories
-import com.mobillium.vitrinova.model.Featured
-import com.mobillium.vitrinova.model.Products
+import com.mobillium.vitrinova.model.*
 import com.mobillium.vitrinova.service.DiscoveryAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -37,11 +35,20 @@ class MainViewModel : ViewModel() {
                         val featuredJsonArray = t[0]
                         val productsJsonArray = t[1]
                         val categoriesJsonArray = t[2]
+                        val collectionsJsonArray = t[3]
+                        val editorShopJsonArray = t[4]
+                        val newShopJsonArray = t[5]
 
                         val featuredList = Gson().fromJson(featuredJsonArray, Featured::class.java)
                         val productsList = Gson().fromJson(productsJsonArray, Products::class.java)
                         val categoriesList =
                             Gson().fromJson(categoriesJsonArray, Categories::class.java)
+                        val collectionsList =
+                            Gson().fromJson(collectionsJsonArray, Collections::class.java)
+                        val editorShopList =
+                            Gson().fromJson(editorShopJsonArray, EditorShop::class.java)
+                        val newShopList =
+                            Gson().fromJson(newShopJsonArray, NewShops::class.java)
 
 
                     }
