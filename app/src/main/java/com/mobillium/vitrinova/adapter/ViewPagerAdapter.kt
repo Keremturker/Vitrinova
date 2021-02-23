@@ -10,6 +10,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Featured
+import com.mobillium.vitrinova.util.downloadFromUrl
 
 class ViewPagerAdapter(
     private val context: Context,
@@ -31,9 +32,8 @@ class ViewPagerAdapter(
 
         val imgSlider: ImageView = view.findViewById(R.id.imgSlider)
 
-        Glide.with(context)
-            .load(list[position].cover.url)
-            .into(imgSlider)
+
+        imgSlider.downloadFromUrl(list[position].cover.url)
 
         container.addView(view, position)
 
@@ -48,7 +48,7 @@ class ViewPagerAdapter(
         container.removeView(`object` as View)
     }
 
-     fun updateList(newList: List<Featured.FeaturedList>) {
+    fun updateList(newList: List<Featured.FeaturedList>) {
 
         list.clear()
         list.addAll(newList)

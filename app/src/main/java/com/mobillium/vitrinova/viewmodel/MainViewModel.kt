@@ -1,7 +1,7 @@
 package com.mobillium.vitrinova.viewmodel
 
- import android.content.Context
- import android.view.ViewGroup
+import android.content.Context
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -18,7 +18,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel() : ViewModel() {
+class MainViewModel : ViewModel() {
+
+    val isError = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
 
     val discoverList = MutableLiveData<JsonArray>()
     val featuredList = MutableLiveData<Featured>()
@@ -35,6 +38,7 @@ class MainViewModel() : ViewModel() {
 
     fun getDataFromAPI() {
 
+        isLoading.value = true
 
         disposable.add(
             discoveryAPIService.getDiscovery()
@@ -42,8 +46,10 @@ class MainViewModel() : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<JsonArray>() {
                     override fun onSuccess(t: JsonArray) {
-
+                        isError.value = false
+                        isLoading.value = false
                         discoverList.value = t
+
 
                         val featuredJsonArray = t[0]
                         val productsJsonArray = t[1]
@@ -75,7 +81,10 @@ class MainViewModel() : ViewModel() {
                     }
 
                     override fun onError(e: Throwable) {
-                        TODO("Not yet implemented")
+
+                        isError.value = true
+                        isLoading.value = false
+
                     }
 
 

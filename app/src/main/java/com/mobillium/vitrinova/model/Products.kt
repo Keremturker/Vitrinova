@@ -25,9 +25,9 @@ data class Products(
         @SerializedName("definition")
         val definition: String?,
         @SerializedName("old_price")
-        val old_price: Int?,
+        val old_price: String?,
         @SerializedName("price")
-        val priceInt: Int?,
+        val priceInt: String?,
         @SerializedName("stock")
         val stock: Int?,
         @SerializedName("max_installment")
