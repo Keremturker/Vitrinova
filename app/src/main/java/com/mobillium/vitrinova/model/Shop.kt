@@ -32,7 +32,7 @@ data class Shop(
     @SerializedName("is_following")
     val is_following: Boolean?,
     @SerializedName("cover")
-    val cover: Cover,
+    val cover: Cover?,
     @SerializedName("share_url")
     val share_url: String?,
     @SerializedName("logo")

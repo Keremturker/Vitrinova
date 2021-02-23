@@ -8,10 +8,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.mobillium.vitrinova.R
@@ -29,15 +30,18 @@ class MainActivity : AppCompatActivity() {
     private var adapterKategoriler = KategorilerAdapter(this, arrayListOf())
     private var adapterKoleksiyon = KoleksiyonAdapter(this, arrayListOf())
     private var adapterViewPagerEditorShop = ViewPagerEditorShopAdapter(this, arrayListOf())
+    private var adapterNewShop = NewShopAdapter(this, arrayListOf())
     private lateinit var viewPagerFeatured: ViewPager
     private lateinit var viewPagerEditorShop: ViewPager
     private lateinit var txtYeniUrunTitle: TextView
     private lateinit var txtKategoriTitle: TextView
     private lateinit var txtKoleksiyonTitle: TextView
     private lateinit var txtEditorShopTitle: TextView
+    private lateinit var txtNewShopTitle: TextView
     private lateinit var rvYeniUrun: RecyclerView
     private lateinit var rvKategoriler: RecyclerView
     private lateinit var rvKoleksiyon: RecyclerView
+    private lateinit var rvNewShop: RecyclerView
     private lateinit var imgEditorShopBackground: ImageView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var pbLoaing: ProgressBar
@@ -59,9 +63,11 @@ class MainActivity : AppCompatActivity() {
         txtKategoriTitle = findViewById(R.id.txtKategoriTitle)
         txtKoleksiyonTitle = findViewById(R.id.txtKoleksiyonTitle)
         txtEditorShopTitle = findViewById(R.id.txtEditorShopTitle)
+        txtNewShopTitle = findViewById(R.id.txtNewShopTitle)
         rvYeniUrun = findViewById(R.id.rvYeniUrun)
         rvKategoriler = findViewById(R.id.rvKategori)
         rvKoleksiyon = findViewById(R.id.rvKoleksiyon)
+        rvNewShop = findViewById(R.id.rvNewShop)
         imgEditorShopBackground = findViewById(R.id.imgEditorShopBackground)
         viewPagerEditorShop = findViewById(R.id.viewPagerEditorShop)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
@@ -74,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         rvYeniUrun.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvYeniUrun.adapter = adapterYeniUrun
 
+
         rvKategoriler.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvKategoriler.adapter = adapterKategoriler
@@ -83,13 +90,21 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvKoleksiyon.adapter = adapterKoleksiyon
 
+        rvNewShop.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvNewShop.adapter = adapterNewShop
+
+
+        val snapHelperNewShop: SnapHelper = PagerSnapHelper()
+        snapHelperNewShop.attachToRecyclerView(rvNewShop)
+
 
 
         viewPagerFeatured.adapter = adapterViewPagerFeatured
         viewPagerEditorShop.adapter = adapterViewPagerEditorShop
 
         viewPagerEditorShop.currentItem = 0
-        viewPagerEditorShop.setPadding(100, 0, 100, 0)
+        viewPagerEditorShop.setPadding(50, 0, 50, 0)
         viewPagerEditorShop.pageMargin = 30
         viewPagerEditorShop.clipToPadding = false
 
@@ -167,11 +182,12 @@ class MainActivity : AppCompatActivity() {
             isLoading?.let {
 
                 if (it) {
-                    pbLoaing.visibility = View.VISIBLE
+                     pbLoaing.visibility = View.VISIBLE
                     swipeRefreshLayout.visibility = View.GONE
 
 
                 } else {
+
                     pbLoaing.visibility = View.GONE
                 }
 
@@ -277,6 +293,19 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+
+        })
+
+        viewModel.newShopList.observe(this, { newShop ->
+
+
+            newShop?.let {
+
+                txtNewShopTitle.text = it.title
+
+                adapterNewShop.updateList(it.shops)
+
+            }
 
         })
 

@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPagerFeatured"
                     android:layout_width="match_parent"
@@ -70,7 +71,6 @@
                     android:id="@+id/clYeniUrunler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/viewPagerFeatured">
@@ -78,10 +78,11 @@
                     <TextView
                         android:id="@+id/txtYeniUrunTitle"
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="En Yeni Ürünler"
-                        app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -89,8 +90,9 @@
                         android:id="@+id/txtYeniUrunTumu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/all_items"
 
-                        android:text="Tümü"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/txtYeniUrunTitle" />
 
@@ -112,7 +114,6 @@
                     android:id="@+id/clKategoriler"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/clYeniUrunler">
@@ -122,9 +123,9 @@
                         android:id="@+id/txtKategoriTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Kategoriler"
-                        app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -144,7 +145,7 @@
                     android:id="@+id/clKoleksiyonlar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clKategoriler">
@@ -153,9 +154,10 @@
                         android:id="@+id/txtKoleksiyonTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="En Yeni Ürünler"
-                        app:layout_constraintStart_toStartOf="parent"
+
+                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -163,8 +165,8 @@
                         android:id="@+id/txtKoleksiyonTumu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="Tümü"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/all_items"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/txtKoleksiyonTitle" />
 
@@ -183,11 +185,11 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    app:layout_constraintTop_toBottomOf="@id/clKoleksiyonlar"
-                    android:id="@+id/linVitBack"
+                    android:id="@+id/llEditorShop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/clKoleksiyonlar">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -198,45 +200,92 @@
                             android:layout_width="match_parent"
                             android:layout_height="320dp"
                             android:scaleType="centerCrop"
-                             tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+                            android:tint="#BF000000" />
 
-                        <LinearLayout
-                             android:layout_width="match_parent"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clEditorSecim"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
+
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/txtEditorShopTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                 android:textColor="@android:color/white" />
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/white"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/txtEditorShopTumu"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:gravity="end"
-                                 android:textColor="@android:color/white" />
-                        </LinearLayout>
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+
+                                android:text="@string/all_items"
+                                android:textColor="@android:color/white"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.viewpager.widget.ViewPager
                             android:id="@+id/viewPagerEditorShop"
                             android:layout_width="wrap_content"
                             android:layout_height="300dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="10dp" />
+                            android:layout_below="@id/clEditorSecim"
+
+                            android:overScrollMode="never" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clNewShop"
+                    android:layout_width="0dp"
+
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llEditorShop">
+
+                    <TextView
+                        android:id="@+id/txtNewShopTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/txtNewShopTumu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/all_items"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/txtNewShopTitle" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNewShop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:overScrollMode="never"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtNewShopTitle" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <ProgressBar

@@ -16,7 +16,7 @@
             android:layout_width="150dp"
 
             android:layout_height="150dp"
-            android:scaleType="matrix"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher_round"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,10 @@
             android:id="@+id/txtsubTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Menessa"
@@ -50,8 +53,9 @@
             android:id="@+id/txtFiyat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="28 TL"
+            android:layout_marginTop="5dp"
+            android:text="x TL"
+
             app:layout_constraintStart_toStartOf="@id/txtTitle"
             app:layout_constraintTop_toBottomOf="@id/txtsubTitle" />
 
@@ -60,12 +64,15 @@
             android:id="@+id/txtEskiFiyat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="28 TL"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/old_price"
+            android:text="x TL"
+            android:textSize="12sp"
+
+            app:layout_constraintBottom_toBottomOf="@id/txtFiyat"
 
             app:layout_constraintStart_toEndOf="@id/txtFiyat"
-            app:layout_constraintTop_toBottomOf="@id/txtsubTitle" />
+            app:layout_constraintTop_toTopOf="@id/txtFiyat" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

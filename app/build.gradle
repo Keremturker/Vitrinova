@@ -82,4 +82,7 @@ dependencies {
 
     //Swipe Refresh Layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //TextDrawable
+    implementation "com.amulyakhare:com.amulyakhare.textdrawable:1.0.1"
 }

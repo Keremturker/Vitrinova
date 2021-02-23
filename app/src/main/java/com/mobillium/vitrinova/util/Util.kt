@@ -1,5 +1,6 @@
 package com.mobillium.vitrinova.util
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -9,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.mobillium.vitrinova.R
 
 fun ImageView.downloadFromUrl(url: String?) {
+
 
 
     Glide.with(context)

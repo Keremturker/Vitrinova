@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="40sp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +14,8 @@
             android:id="@+id/imgKoleksiyon"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="matrix"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="fitXY"
+             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +25,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="HEDİYE ÖNERİLERİ"
 
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="EŞSİZ HEDİYELERLE MUTLU EDİN"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtKoleksiyonTitle" />

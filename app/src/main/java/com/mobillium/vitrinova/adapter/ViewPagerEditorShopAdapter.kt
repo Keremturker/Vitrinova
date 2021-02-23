@@ -33,7 +33,7 @@ class ViewPagerEditorShopAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_editor_shop, container, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_viewpager_editor_shop, container, false)
 
         val imgShopLogo: ImageView = view.findViewById(R.id.imgShopLogo)
         val txtShopName: TextView = view.findViewById(R.id.txtShopName)

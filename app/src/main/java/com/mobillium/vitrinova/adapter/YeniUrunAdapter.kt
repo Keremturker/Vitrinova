@@ -37,8 +37,16 @@ class YeniUrunAdapter(var context: Context, var list: ArrayList<Products.Product
         holder.imgYeniUrun.downloadFromUrl(list[position].images[0].url)
         holder.txtTitle.text = list[position].title
         holder.txtsubTitle.text = list[position].shop.name
-        holder.txtFiyat.text = list[position].priceInt
-        holder.txtEskiFiyat.text = list[position].old_price
+
+        list[position].priceInt?.let {
+            holder.txtFiyat.text = "$it TL"
+        }
+
+        list[position].old_price?.let {
+
+            holder.txtEskiFiyat.text="$it TL"
+        }
+
 
 
     }

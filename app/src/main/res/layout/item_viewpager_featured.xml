@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/imgSlider"
         android:layout_width="match_parent"
-        android:scaleType="matrix"
+        android:scaleType="fitXY"
         android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
