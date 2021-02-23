@@ -1,6 +1,7 @@
 package com.mobillium.vitrinova.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class ViewPagerAdapter(
     override fun getCount(): Int {
 
         return list.size
+        
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

@@ -1,22 +1,24 @@
 package com.mobillium.vitrinova.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.mobillium.vitrinova.R
-import com.mobillium.vitrinova.adapter.KategorilerAdapter
-import com.mobillium.vitrinova.adapter.KoleksiyonAdapter
-import com.mobillium.vitrinova.adapter.ViewPagerAdapter
-import com.mobillium.vitrinova.adapter.YeniUrunAdapter
+import com.mobillium.vitrinova.adapter.*
 import com.mobillium.vitrinova.viewmodel.MainViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,15 +28,19 @@ class MainActivity : AppCompatActivity() {
     private var adapterYeniUrun = YeniUrunAdapter(this, arrayListOf())
     private var adapterKategoriler = KategorilerAdapter(this, arrayListOf())
     private var adapterKoleksiyon = KoleksiyonAdapter(this, arrayListOf())
-    private lateinit var viewPager: ViewPager
+    private var adapterEditorShop = EditorShopAdapter(this, arrayListOf())
+    private lateinit var viewPagerFeatured: ViewPager
     private lateinit var txtYeniUrunTitle: TextView
     private lateinit var txtKategoriTitle: TextView
     private lateinit var txtKoleksiyonTitle: TextView
+    private lateinit var txtEditorShopTitle: TextView
     private lateinit var rvYeniUrun: RecyclerView
     private lateinit var rvKategoriler: RecyclerView
     private lateinit var rvKoleksiyon: RecyclerView
+    private lateinit var rvEditorShop: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var pbLoaing: ProgressBar
+    private lateinit var clEditorShop: ConstraintLayout
 
     companion object {
         lateinit var dotsLayout: LinearLayout
@@ -47,15 +53,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //region View Initialize
-        viewPager = findViewById(R.id.viewPager)
+        viewPagerFeatured = findViewById(R.id.viewPager)
         dotsLayout = findViewById(R.id.dotsLayout)
         txtYeniUrunTitle = findViewById(R.id.txtYeniUrunTitle)
         txtKategoriTitle = findViewById(R.id.txtKategoriTitle)
         txtKoleksiyonTitle = findViewById(R.id.txtKoleksiyonTitle)
+        txtEditorShopTitle = findViewById(R.id.txtEditorShopTitle)
         rvYeniUrun = findViewById(R.id.rvYeniUrun)
         rvKategoriler = findViewById(R.id.rvKategori)
         rvKoleksiyon = findViewById(R.id.rvKoleksiyon)
+        rvEditorShop = findViewById(R.id.rvEditorShop)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
+        clEditorShop = findViewById(R.id.clEditorShop)
         pbLoaing = findViewById(R.id.pbLoaing)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         //endregion
@@ -74,13 +83,23 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvKoleksiyon.adapter = adapterKoleksiyon
 
+        rvEditorShop.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvEditorShop.adapter = adapterEditorShop
 
-        viewPager.adapter = adapterViewPager
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(rvEditorShop)
+
+
+
+
+        viewPagerFeatured.adapter = adapterViewPager
+        rvEditorShop.adapter = adapterEditorShop
 
         //endregion
 
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPagerFeatured.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -101,6 +120,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+
 
         viewModel.getDataFromAPI()
 
@@ -212,6 +233,21 @@ class MainActivity : AppCompatActivity() {
 
                 txtKoleksiyonTitle.text = it.title
                 adapterKoleksiyon.updateList(it.collections)
+
+
+            }
+
+
+        })
+
+        viewModel.editorShopList.observe(this, { editorShop ->
+
+            editorShop?.let {
+
+                txtEditorShopTitle.text = it.title
+                Log.d("positions", "" + it.shops.size)
+
+                adapterEditorShop.updateList(it.shops)
 
 
             }
