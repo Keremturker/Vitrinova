@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.adapter.KategorilerAdapter
+import com.mobillium.vitrinova.adapter.KoleksiyonAdapter
 import com.mobillium.vitrinova.adapter.ViewPagerAdapter
 import com.mobillium.vitrinova.adapter.YeniUrunAdapter
 import com.mobillium.vitrinova.viewmodel.MainViewModel
@@ -24,11 +25,14 @@ class MainActivity : AppCompatActivity() {
     private var adapterViewPager = ViewPagerAdapter(this, arrayListOf())
     private var adapterYeniUrun = YeniUrunAdapter(this, arrayListOf())
     private var adapterKategoriler = KategorilerAdapter(this, arrayListOf())
+    private var adapterKoleksiyon = KoleksiyonAdapter(this, arrayListOf())
     private lateinit var viewPager: ViewPager
     private lateinit var txtYeniUrunTitle: TextView
     private lateinit var txtKategoriTitle: TextView
+    private lateinit var txtKoleksiyonTitle: TextView
     private lateinit var rvYeniUrun: RecyclerView
     private lateinit var rvKategoriler: RecyclerView
+    private lateinit var rvKoleksiyon: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var pbLoaing: ProgressBar
 
@@ -47,8 +51,10 @@ class MainActivity : AppCompatActivity() {
         dotsLayout = findViewById(R.id.dotsLayout)
         txtYeniUrunTitle = findViewById(R.id.txtYeniUrunTitle)
         txtKategoriTitle = findViewById(R.id.txtKategoriTitle)
+        txtKoleksiyonTitle = findViewById(R.id.txtKoleksiyonTitle)
         rvYeniUrun = findViewById(R.id.rvYeniUrun)
-        rvKategoriler = findViewById(R.id.rvKategoriler)
+        rvKategoriler = findViewById(R.id.rvKategori)
+        rvKoleksiyon = findViewById(R.id.rvKoleksiyon)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         pbLoaing = findViewById(R.id.pbLoaing)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -62,6 +68,12 @@ class MainActivity : AppCompatActivity() {
         rvKategoriler.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvKategoriler.adapter = adapterKategoriler
+
+
+        rvKoleksiyon.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvKoleksiyon.adapter = adapterKoleksiyon
+
 
         viewPager.adapter = adapterViewPager
 
@@ -191,6 +203,19 @@ class MainActivity : AppCompatActivity() {
 
 
             }
+
+        })
+
+        viewModel.collectionsList.observe(this, { collections ->
+
+            collections?.let {
+
+                txtKoleksiyonTitle.text = it.title
+                adapterKoleksiyon.updateList(it.collections)
+
+
+            }
+
 
         })
 
