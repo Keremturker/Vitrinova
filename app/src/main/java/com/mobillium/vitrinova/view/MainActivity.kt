@@ -3,6 +3,7 @@ package com.mobillium.vitrinova.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -10,13 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.adapter.*
+import com.mobillium.vitrinova.util.downloadFromUrl
 import com.mobillium.vitrinova.viewmodel.MainViewModel
 
 
@@ -24,12 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     //region Defination
     lateinit var viewModel: MainViewModel
-    private var adapterViewPager = ViewPagerAdapter(this, arrayListOf())
+    private var adapterViewPagerFeatured = ViewPagerFeaturedAdapter(this, arrayListOf())
     private var adapterYeniUrun = YeniUrunAdapter(this, arrayListOf())
     private var adapterKategoriler = KategorilerAdapter(this, arrayListOf())
     private var adapterKoleksiyon = KoleksiyonAdapter(this, arrayListOf())
-    private var adapterEditorShop = EditorShopAdapter(this, arrayListOf())
+    private var adapterViewPagerEditorShop = ViewPagerEditorShopAdapter(this, arrayListOf())
     private lateinit var viewPagerFeatured: ViewPager
+    private lateinit var viewPagerEditorShop: ViewPager
     private lateinit var txtYeniUrunTitle: TextView
     private lateinit var txtKategoriTitle: TextView
     private lateinit var txtKoleksiyonTitle: TextView
@@ -37,10 +38,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvYeniUrun: RecyclerView
     private lateinit var rvKategoriler: RecyclerView
     private lateinit var rvKoleksiyon: RecyclerView
-    private lateinit var rvEditorShop: RecyclerView
+    private lateinit var imgEditorShopBackground: ImageView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var pbLoaing: ProgressBar
-    private lateinit var clEditorShop: ConstraintLayout
 
     companion object {
         lateinit var dotsLayout: LinearLayout
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //region View Initialize
-        viewPagerFeatured = findViewById(R.id.viewPager)
+        viewPagerFeatured = findViewById(R.id.viewPagerFeatured)
         dotsLayout = findViewById(R.id.dotsLayout)
         txtYeniUrunTitle = findViewById(R.id.txtYeniUrunTitle)
         txtKategoriTitle = findViewById(R.id.txtKategoriTitle)
@@ -62,9 +62,9 @@ class MainActivity : AppCompatActivity() {
         rvYeniUrun = findViewById(R.id.rvYeniUrun)
         rvKategoriler = findViewById(R.id.rvKategori)
         rvKoleksiyon = findViewById(R.id.rvKoleksiyon)
-        rvEditorShop = findViewById(R.id.rvEditorShop)
+        imgEditorShopBackground = findViewById(R.id.imgEditorShopBackground)
+        viewPagerEditorShop = findViewById(R.id.viewPagerEditorShop)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        clEditorShop = findViewById(R.id.clEditorShop)
         pbLoaing = findViewById(R.id.pbLoaing)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         //endregion
@@ -83,18 +83,15 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvKoleksiyon.adapter = adapterKoleksiyon
 
-        rvEditorShop.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvEditorShop.adapter = adapterEditorShop
-
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(rvEditorShop)
 
 
+        viewPagerFeatured.adapter = adapterViewPagerFeatured
+        viewPagerEditorShop.adapter = adapterViewPagerEditorShop
 
-
-        viewPagerFeatured.adapter = adapterViewPager
-        rvEditorShop.adapter = adapterEditorShop
+        viewPagerEditorShop.currentItem = 0
+        viewPagerEditorShop.setPadding(100, 0, 100, 0)
+        viewPagerEditorShop.pageMargin = 30
+        viewPagerEditorShop.clipToPadding = false
 
         //endregion
 
@@ -118,6 +115,29 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {
             }
+
+        })
+
+        viewPagerEditorShop.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+
+            }
+
+            override fun onPageSelected(position: Int) {
+
+
+                imgEditorShopBackground.downloadFromUrl(viewModel.editorShopList.value!!.shops[position].cover.url)
+
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
 
         })
 
@@ -192,7 +212,9 @@ class MainActivity : AppCompatActivity() {
 
             featured?.let {
 
-                adapterViewPager.updateList(it.featured)
+                viewPagerFeatured.offscreenPageLimit = it.featured.size
+
+                adapterViewPagerFeatured.updateList(it.featured)
                 viewModel.prepareDots(this, 0, it.featured.size)
 
 
@@ -245,9 +267,12 @@ class MainActivity : AppCompatActivity() {
             editorShop?.let {
 
                 txtEditorShopTitle.text = it.title
-                Log.d("positions", "" + it.shops.size)
 
-                adapterEditorShop.updateList(it.shops)
+                imgEditorShopBackground.downloadFromUrl(viewModel.editorShopList.value!!.shops[0].cover.url)
+
+                viewPagerEditorShop.offscreenPageLimit = it.shops.size
+
+                adapterViewPagerEditorShop.updateList(it.shops)
 
 
             }

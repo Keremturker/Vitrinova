@@ -13,7 +13,7 @@ import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Featured
 import com.mobillium.vitrinova.util.downloadFromUrl
 
-class ViewPagerAdapter(
+class ViewPagerFeaturedAdapter(
     private val context: Context,
     private val list: ArrayList<Featured.FeaturedList>
 ) : PagerAdapter() {

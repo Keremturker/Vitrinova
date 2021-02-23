@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager"
+                    android:id="@+id/viewPagerFeatured"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:foregroundGravity="center"
@@ -62,7 +62,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:translationZ="1dp"
-                    app:layout_constraintBottom_toBottomOf="@id/viewPager"
+                    app:layout_constraintBottom_toBottomOf="@id/viewPagerFeatured"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +73,7 @@
                     android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/viewPager">
+                    app:layout_constraintTop_toBottomOf="@id/viewPagerFeatured">
 
                     <TextView
                         android:id="@+id/txtYeniUrunTitle"
@@ -182,45 +182,61 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clEditorShop"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    app:layout_constraintTop_toBottomOf="@id/clKoleksiyonlar"
+                    android:id="@+id/linVitBack"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clKoleksiyonlar">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txtEditorShopTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="En Yeni Ürünler"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:id="@+id/imgEditorShopBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="320dp"
+                            android:scaleType="centerCrop"
+                             tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
 
-                    <TextView
-                        android:id="@+id/txtEditorShopTumu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tümü"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/txtEditorShopTitle" />
+                        <LinearLayout
+                             android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvEditorShop"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                         android:overScrollMode="never"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/txtEditorShopTumu" />
+                            <TextView
+                                android:id="@+id/txtEditorShopTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                 android:textColor="@android:color/white" />
 
+                            <TextView
+                                android:id="@+id/txtEditorShopTumu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:gravity="end"
+                                 android:textColor="@android:color/white" />
+                        </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewPagerEditorShop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="300dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="10dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
 
                 <ProgressBar
