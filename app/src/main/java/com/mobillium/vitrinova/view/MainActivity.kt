@@ -1,13 +1,13 @@
 package com.mobillium.vitrinova.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.speech.RecognizerIntent
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -19,6 +19,7 @@ import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.adapter.*
 import com.mobillium.vitrinova.util.downloadFromUrl
 import com.mobillium.vitrinova.viewmodel.MainViewModel
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,8 +44,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvKoleksiyon: RecyclerView
     private lateinit var rvNewShop: RecyclerView
     private lateinit var imgEditorShopBackground: ImageView
+    private lateinit var toolbar: Toolbar
+    private lateinit var imgVoice: ImageView
+
+    private lateinit var edtSearch: EditText
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var pbLoaing: ProgressBar
+    private lateinit var pbLoading: ProgressBar
 
     companion object {
         lateinit var dotsLayout: LinearLayout
@@ -68,10 +73,15 @@ class MainActivity : AppCompatActivity() {
         rvKategoriler = findViewById(R.id.rvKategori)
         rvKoleksiyon = findViewById(R.id.rvKoleksiyon)
         rvNewShop = findViewById(R.id.rvNewShop)
+        toolbar = findViewById(R.id.toolbar)
+        edtSearch = findViewById(R.id.edtSearch)
+        imgVoice = findViewById(R.id.imgVoice)
         imgEditorShopBackground = findViewById(R.id.imgEditorShopBackground)
         viewPagerEditorShop = findViewById(R.id.viewPagerEditorShop)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        pbLoaing = findViewById(R.id.pbLoaing)
+        pbLoading = findViewById(R.id.pbLoaing)
+
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         //endregion
 
@@ -162,7 +172,9 @@ class MainActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener {
 
+            edtSearch.text.clear()
             viewModel.getDataFromAPI()
+
 
             swipeRefreshLayout.isRefreshing = false
 
@@ -172,6 +184,18 @@ class MainActivity : AppCompatActivity() {
 
 
         observeLiveData()
+
+        imgVoice.setOnClickListener {
+
+
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
+            startActivityForResult(intent, 1)
+
+        }
+
+
     }
 
     private fun observeLiveData() {
@@ -182,13 +206,13 @@ class MainActivity : AppCompatActivity() {
             isLoading?.let {
 
                 if (it) {
-                     pbLoaing.visibility = View.VISIBLE
+                    pbLoading.visibility = View.VISIBLE
                     swipeRefreshLayout.visibility = View.GONE
 
 
                 } else {
 
-                    pbLoaing.visibility = View.GONE
+                    pbLoading.visibility = View.GONE
                 }
 
             }
@@ -309,6 +333,24 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1) {
+
+            if (resultCode == Activity.RESULT_OK && null != data) {
+
+                edtSearch.setText(
+                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0).toString()
+                )
+
+
+            }
+
+        }
     }
 
 

@@ -54,7 +54,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="x TL"
 
             app:layout_constraintStart_toStartOf="@id/txtTitle"
             app:layout_constraintTop_toBottomOf="@id/txtsubTitle" />
@@ -66,8 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:background="@drawable/old_price"
-            android:text="x TL"
-            android:textSize="12sp"
+             android:textSize="12sp"
 
             app:layout_constraintBottom_toBottomOf="@id/txtFiyat"
 

@@ -1,22 +1,31 @@
 package com.mobillium.vitrinova.viewmodel
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.speech.RecognizerIntent
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
+ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.*
+import com.mobillium.vitrinova.model.Collections
 import com.mobillium.vitrinova.service.DiscoveryAPIService
 import com.mobillium.vitrinova.view.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class MainViewModel : ViewModel() {
 
@@ -138,4 +147,7 @@ class MainViewModel : ViewModel() {
 
 
     }
+
+
+
 }
