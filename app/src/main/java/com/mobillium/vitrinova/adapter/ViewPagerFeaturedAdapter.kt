@@ -11,8 +11,8 @@ import com.mobillium.vitrinova.model.Featured
 import com.mobillium.vitrinova.util.downloadFromUrl
 
 class ViewPagerFeaturedAdapter(
-    private val context: Context,
-    private val list: ArrayList<Featured.FeaturedList>
+      var context: Context?,
+      var list: ArrayList<Featured.FeaturedList>
 ) : PagerAdapter() {
     override fun getCount(): Int {
 
@@ -47,11 +47,11 @@ class ViewPagerFeaturedAdapter(
         container.removeView(`object` as View)
     }
 
-    fun updateList(newList: List<Featured.FeaturedList>) {
+    fun updateList(newContext:  Context?,newList: List<Featured.FeaturedList>) {
 
         list.clear()
         list.addAll(newList)
-
+        context = newContext
         notifyDataSetChanged()
 
     }

@@ -16,7 +16,7 @@ import com.mobillium.vitrinova.model.NewShops
 import com.mobillium.vitrinova.model.Shop
 import com.mobillium.vitrinova.util.downloadFromUrl
 
-class NewShopAdapter(var context: Context, var list: ArrayList<Shop>) :
+class NewShopAdapter(var context: Context?, var list: ArrayList<Shop>) :
     RecyclerView.Adapter<NewShopAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
@@ -37,7 +37,6 @@ class NewShopAdapter(var context: Context, var list: ArrayList<Shop>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
 
 
         holder.txtShopName.text = list[position].name
@@ -70,12 +69,11 @@ class NewShopAdapter(var context: Context, var list: ArrayList<Shop>) :
             holder.imgShopLogo.setImageDrawable(drawable)
 
         } else {
-            Glide.with(context).load(list[position].logo!!.url)
+            Glide.with(context!!).load(list[position].logo!!.url)
                 .apply(RequestOptions.circleCropTransform()).into(holder.imgShopLogo)
 
 
         }
-
 
 
     }
@@ -85,10 +83,11 @@ class NewShopAdapter(var context: Context, var list: ArrayList<Shop>) :
         return list.size
     }
 
-    fun updateList(newList: List<Shop>) {
+    fun updateList(newContext:  Context?, newList: List<Shop>) {
 
         list.clear()
         list.addAll(newList)
+        context = newContext
         notifyDataSetChanged()
 
     }

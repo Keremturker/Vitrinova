@@ -15,8 +15,8 @@ import com.mobillium.vitrinova.model.EditorShop
 import com.mobillium.vitrinova.util.downloadFromUrl
 
 class ViewPagerEditorShopAdapter(
-    private val context: Context,
-    private val list: ArrayList<EditorShop.Shops>
+    var context: Context?,
+    var list: ArrayList<EditorShop.Shops>
 ) :
     PagerAdapter() {
 
@@ -33,7 +33,8 @@ class ViewPagerEditorShopAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_viewpager_editor_shop, container, false)
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.item_viewpager_editor_shop, container, false)
 
         val imgShopLogo: ImageView = view.findViewById(R.id.imgShopLogo)
         val txtShopName: TextView = view.findViewById(R.id.txtShopName)
@@ -48,7 +49,7 @@ class ViewPagerEditorShopAdapter(
 
         txtShopName.text = list[position].name
         txtShopDescription.text = list[position].definition
-        Glide.with(context).load(list[position].logo?.url)
+        Glide.with(context!!).load(list[position].logo?.url)
             .apply(RequestOptions.circleCropTransform()).into(imgShopLogo)
         container.addView(view, position)
         return view
@@ -61,10 +62,11 @@ class ViewPagerEditorShopAdapter(
         container.removeView(`object` as View)
     }
 
-    fun updateList(newList: List<EditorShop.Shops>) {
+    fun updateList(newContext:  Context?, newList: List<EditorShop.Shops>) {
 
         list.clear()
         list.addAll(newList)
+        context = newContext
         notifyDataSetChanged()
 
     }

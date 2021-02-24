@@ -1,14 +1,9 @@
 package com.mobillium.vitrinova.viewmodel
 
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.speech.RecognizerIntent
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,16 +13,15 @@ import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.*
 import com.mobillium.vitrinova.model.Collections
 import com.mobillium.vitrinova.service.DiscoveryAPIService
-import com.mobillium.vitrinova.view.MainActivity
+import com.mobillium.vitrinova.view.FragmentMain
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainViewModel : ViewModel() {
+class MainFragmentViewModel : ViewModel() {
 
     val isError = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
@@ -107,8 +101,8 @@ class MainViewModel : ViewModel() {
     //ViewPager indicator ekleme işlemi
     fun prepareDots(context: Context, CurrentPosition: Int, size: Int) {
 
-        if (MainActivity.dotsLayout.childCount > 0) {
-            MainActivity.dotsLayout.removeAllViews()
+        if (FragmentMain.dotsLayout.childCount > 0) {
+            FragmentMain.dotsLayout.removeAllViews()
         }
 
         var dots = ArrayList<ImageView>()
@@ -141,7 +135,7 @@ class MainViewModel : ViewModel() {
 
 
 
-            MainActivity.dotsLayout.addView(dots[i], layoutParams)
+            FragmentMain.dotsLayout.addView(dots[i], layoutParams)
 
         }
 

@@ -11,12 +11,12 @@ import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Categories
 import com.mobillium.vitrinova.util.downloadFromUrl
 
-class KategorilerAdapter(var context: Context, var list: ArrayList<Categories.CategoriesList>) :
-    RecyclerView.Adapter<KategorilerAdapter.ViewHolder>() {
+class CategoriesAdapter(var context: Context?, var list: ArrayList<Categories.CategoriesList>) :
+    RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         val imgKategori: ImageView = view.findViewById(R.id.imgKategori)
-        val txtKategoriTitle: TextView = view.findViewById(R.id.txtKategoriTitle)
+        val txtKategoriTitle: TextView = view.findViewById(R.id.txtCategoriesTitle)
 
 
     }
@@ -24,7 +24,7 @@ class KategorilerAdapter(var context: Context, var list: ArrayList<Categories.Ca
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_kategori, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
 
         return ViewHolder(inflater)
 
@@ -42,10 +42,13 @@ class KategorilerAdapter(var context: Context, var list: ArrayList<Categories.Ca
         return list.size
     }
 
-    fun updateList(newList: List<Categories.CategoriesList>) {
+    fun updateList(newContext:  Context?, newList: List<Categories.CategoriesList>) {
 
         list.clear()
         list.addAll(newList)
+        context = newContext
+
+
         notifyDataSetChanged()
 
     }

@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Products
 import com.mobillium.vitrinova.util.downloadFromUrl
+import com.mobillium.vitrinova.view.MainActivity
 
-class YeniUrunAdapter(var context: Context, var list: ArrayList<Products.ProductsList>) :
-    RecyclerView.Adapter<YeniUrunAdapter.ViewHolder>() {
+class NewProductAdapter(var context: Context?, var list: ArrayList<Products.ProductsList>) :
+    RecyclerView.Adapter<NewProductAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         val imgYeniUrun: ImageView = view.findViewById(R.id.imgYeniUrun)
@@ -25,8 +26,29 @@ class YeniUrunAdapter(var context: Context, var list: ArrayList<Products.Product
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_yeni_urun, parent, false)
+
+        var inflater: View
+
+        //Main Fragment
+        if (MainActivity.navController.currentDestination?.id == R.id.mainFragment) {
+            inflater = LayoutInflater.from(parent.context).inflate(
+                R.layout.item_new_product,
+                parent,
+                false
+            )
+
+
+        } else { //NewProductFragment
+
+            inflater =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_all_new_product, parent, false)
+
+
+        }
+
+
+
 
         return ViewHolder(inflater)
 
@@ -44,9 +66,8 @@ class YeniUrunAdapter(var context: Context, var list: ArrayList<Products.Product
 
         list[position].old_price?.let {
 
-            holder.txtEskiFiyat.text="$it TL"
+            holder.txtEskiFiyat.text = "$it TL"
         }
-
 
 
     }
@@ -56,10 +77,11 @@ class YeniUrunAdapter(var context: Context, var list: ArrayList<Products.Product
     }
 
 
-    fun updateList(newList: List<Products.ProductsList>) {
+    fun updateList(newContext: Context?, newList: List<Products.ProductsList>) {
 
         list.clear()
         list.addAll(newList)
+        context = newContext
         notifyDataSetChanged()
 
     }

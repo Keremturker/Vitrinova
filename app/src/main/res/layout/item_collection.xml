@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtKoleksiyonTitle"
+            android:id="@+id/txtCollectionsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -44,7 +44,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtKoleksiyonTitle" />
+            app:layout_constraintTop_toBottomOf="@id/txtCollectionsTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

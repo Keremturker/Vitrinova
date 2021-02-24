@@ -11,14 +11,14 @@ import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Collections
 import com.mobillium.vitrinova.util.downloadFromUrl
 
-class KoleksiyonAdapter(var context: Context, var list: ArrayList<Collections.CollectionsList>) :
-    RecyclerView.Adapter<KoleksiyonAdapter.ViewHolder>() {
+class CollectionsAdapter(var context: Context?, var list: ArrayList<Collections.CollectionsList>) :
+    RecyclerView.Adapter<CollectionsAdapter.ViewHolder>() {
 
 
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         val imgKoleksiyon: ImageView = view.findViewById(R.id.imgKoleksiyon)
-        val txtKoleksiyonTitle: TextView = view.findViewById(R.id.txtKoleksiyonTitle)
+        val txtKoleksiyonTitle: TextView = view.findViewById(R.id.txtCollectionsTitle)
         val txtKoleksiyonDefination: TextView = view.findViewById(R.id.txtKoleksiyonDefination)
 
 
@@ -27,7 +27,7 @@ class KoleksiyonAdapter(var context: Context, var list: ArrayList<Collections.Co
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_koleksiyon, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_collection, parent, false)
 
         return ViewHolder(inflater)
 
@@ -48,10 +48,12 @@ class KoleksiyonAdapter(var context: Context, var list: ArrayList<Collections.Co
         return list.size
     }
 
-    fun updateList(newList: List<Collections.CollectionsList>) {
+    fun updateList(newContext:  Context?, newList: List<Collections.CollectionsList>) {
 
         list.clear()
         list.addAll(newList)
+        context = newContext
+
         notifyDataSetChanged()
 
     }

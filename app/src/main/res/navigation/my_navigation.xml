@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.mobillium.vitrinova.view.FragmentMain"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentNewProduct"
+            app:destination="@id/fragmentNewProduct" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentCollections"
+            app:destination="@id/fragmentCollections" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentNewProduct"
+        android:name="com.mobillium.vitrinova.view.FragmentNewProduct"
+        android:label="fragment_new_product"
+        tools:layout="@layout/fragment_new_product">
+        <argument
+            android:name="list"
+            app:argType="com.mobillium.vitrinova.model.Products$ProductsList[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCollections"
+        android:name="com.mobillium.vitrinova.view.FragmentCollections"
+        android:label="fragment_collections"
+        tools:layout="@layout/fragment_collections">
+        <argument
+            android:name="list"
+            app:argType="com.mobillium.vitrinova.model.Collections$CollectionsList[]" />
+
+
+    </fragment>
+</navigation>

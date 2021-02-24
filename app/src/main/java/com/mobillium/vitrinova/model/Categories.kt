@@ -1,7 +1,10 @@
 package com.mobillium.vitrinova.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Categories(
     @SerializedName("type")
     val type: String?,
@@ -9,8 +12,9 @@ data class Categories(
     val title: String?,
     @SerializedName("categories")
     val categories: List<CategoriesList>
-) {
+):Parcelable {
 
+    @Parcelize
     data class CategoriesList(
         @SerializedName("id")
         val id: Int?,
@@ -28,8 +32,9 @@ data class Categories(
         val cover: Cover,
         @SerializedName("children")
         val children: List<Children>
-    ) {
+    ):Parcelable {
 
+        @Parcelize
         data class Children(
             @SerializedName("id")
             val id: Int?,
@@ -45,7 +50,7 @@ data class Categories(
             val logo: Cover,
             @SerializedName("cover")
             val cover: Cover
-        )
+        ):Parcelable
     }
 
 }

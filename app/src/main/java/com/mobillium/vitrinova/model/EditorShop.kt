@@ -1,7 +1,10 @@
 package com.mobillium.vitrinova.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class EditorShop(
     @SerializedName("type")
     val type: String?,
@@ -9,8 +12,9 @@ data class EditorShop(
     val title: String?,
     @SerializedName("shops")
     val shops: List<Shops>
-) {
+) : Parcelable {
 
+    @Parcelize
     data class Shops(
         @SerializedName("id")
         val id: Int?,
@@ -48,8 +52,9 @@ data class EditorShop(
         val share_url: String?,
         @SerializedName("logo")
         val logo: Cover?
-    ) {
+    ) : Parcelable {
 
+        @Parcelize
         data class PopularProducts(
             @SerializedName("id")
             val id: Int?,
@@ -107,7 +112,8 @@ data class EditorShop(
             val category: Category
 
 
-        ) {
+        ) : Parcelable {
+            @Parcelize
             data class Category(
                 @SerializedName("id")
                 val id: Int?,
@@ -119,7 +125,7 @@ data class EditorShop(
                 val order: Int?,
                 @SerializedName("parent_category")
                 val parent_category: ParentCategory
-            )
+            ) : Parcelable
 
         }
 
