@@ -23,9 +23,9 @@ class FragmentCollections : Fragment() {
     }
 
 
-    lateinit var rvAllCollectionList: RecyclerView
-    lateinit var collectionsAdapter: CollectionsAdapter
-    var collectionsList = ArrayList<Collections.CollectionsList>()
+    private lateinit var rvAllCollectionList: RecyclerView
+    private lateinit var collectionsAdapter: CollectionsAdapter
+    private var collectionsList = ArrayList<Collections.CollectionsList>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

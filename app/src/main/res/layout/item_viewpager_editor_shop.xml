@@ -6,7 +6,7 @@
 
 
     <ImageView
-        android:id="@+id/imgShopLogo"
+        android:id="@+id/imgEditorShopLogo"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:src="@mipmap/ic_launcher"
@@ -36,7 +36,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/txtShopName"
+                    android:id="@+id/txtEditorShopName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -59,7 +59,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtShopName" />
+                    app:layout_constraintTop_toBottomOf="@id/txtEditorShopName" />
 
                 <ImageView
                     android:id="@+id/imgPopular1"

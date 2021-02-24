@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
@@ -36,8 +35,8 @@ class ViewPagerEditorShopAdapter(
         val view = LayoutInflater.from(context)
             .inflate(R.layout.item_viewpager_editor_shop, container, false)
 
-        val imgShopLogo: ImageView = view.findViewById(R.id.imgShopLogo)
-        val txtShopName: TextView = view.findViewById(R.id.txtShopName)
+        val imgShopLogo: ImageView = view.findViewById(R.id.imgEditorShopLogo)
+        val txtShopName: TextView = view.findViewById(R.id.txtEditorShopName)
         val txtShopDescription: TextView = view.findViewById(R.id.txtShopDescription)
         val imgPopular1: ImageView = view.findViewById(R.id.imgPopular1)
         val imgPopular2: ImageView = view.findViewById(R.id.imgPopular2)

@@ -45,6 +45,8 @@ class FragmentMain : Fragment() {
 
     private lateinit var txtNewProductAll: TextView
     private lateinit var txtCollectionsAll: TextView
+    private lateinit var txtEditorShopAll: TextView
+    private lateinit var txtNewShopAll: TextView
 
     private lateinit var rvNewProduct: RecyclerView
     private lateinit var rvCategories: RecyclerView
@@ -89,6 +91,8 @@ class FragmentMain : Fragment() {
 
         txtNewProductAll = view.findViewById(R.id.txtNewProductAll)
         txtCollectionsAll = view.findViewById(R.id.txtCollectionsAll)
+        txtEditorShopAll = view.findViewById(R.id.txtEditorShopAll)
+        txtNewShopAll = view.findViewById(R.id.txtNewShopAll)
 
         rvNewProduct = view.findViewById(R.id.rvNewProduct)
         rvCategories = view.findViewById(R.id.rvCategories)
@@ -235,6 +239,27 @@ class FragmentMain : Fragment() {
             val action =
                 FragmentMainDirections.actionMainFragmentToFragmentCollections(collectionList)
 
+            Navigation.findNavController(it).navigate(action)
+
+        }
+
+
+        txtEditorShopAll.setOnClickListener {
+
+            val editorShopList = viewModel.editorShopList.value!!.shops.toTypedArray()
+
+            val action =
+                FragmentMainDirections.actionMainFragmentToFragmentEditorShop(editorShopList)
+            Navigation.findNavController(it).navigate(action)
+
+        }
+
+        txtNewShopAll.setOnClickListener {
+
+
+            val newShopList = viewModel.newShopList.value!!.shops.toTypedArray()
+
+            val action = FragmentMainDirections.actionMainFragmentToFragmentNewShop(newShopList)
             Navigation.findNavController(it).navigate(action)
 
         }

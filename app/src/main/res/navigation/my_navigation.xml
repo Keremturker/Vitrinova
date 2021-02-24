@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_mainFragment_to_fragmentCollections"
             app:destination="@id/fragmentCollections" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentEditorShop"
+            app:destination="@id/fragmentEditorShop" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentNewShop"
+            app:destination="@id/fragmentNewShop" />
     </fragment>
     <fragment
         android:id="@+id/fragmentNewProduct"
@@ -36,5 +42,23 @@
             app:argType="com.mobillium.vitrinova.model.Collections$CollectionsList[]" />
 
 
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentEditorShop"
+        android:name="com.mobillium.vitrinova.view.FragmentEditorShop"
+        android:label="fragment_editor_shop"
+        tools:layout="@layout/fragment_editor_shop" >
+        <argument
+            android:name="list"
+            app:argType="com.mobillium.vitrinova.model.EditorShop$Shops[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentNewShop"
+        android:name="com.mobillium.vitrinova.view.FragmentNewShop"
+        android:label="fragment_new_shop"
+        tools:layout="@layout/fragment_new_shop" >
+        <argument
+            android:name="list"
+            app:argType="com.mobillium.vitrinova.model.Shop[]" />
     </fragment>
 </navigation>

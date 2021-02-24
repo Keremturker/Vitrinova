@@ -22,9 +22,9 @@ class FragmentNewProduct : Fragment() {
         return inflater.inflate(R.layout.fragment_new_product, container, false)
     }
 
-    lateinit var rvAllProductList: RecyclerView
-    lateinit var newProductAdapter: NewProductAdapter
-    var productList = ArrayList<Products.ProductsList>()
+    private lateinit var rvAllProductList: RecyclerView
+    private lateinit var newProductAdapter: NewProductAdapter
+    private var productList = ArrayList<Products.ProductsList>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
