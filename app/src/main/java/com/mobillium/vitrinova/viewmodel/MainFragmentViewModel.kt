@@ -1,13 +1,14 @@
 package com.mobillium.vitrinova.viewmodel
 
 import android.content.Context
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
- import com.google.gson.Gson
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.*
@@ -40,8 +41,7 @@ class MainFragmentViewModel : ViewModel() {
 
 
     fun getDataFromAPI() {
-
-        isLoading.value = true
+         isLoading.value = true
 
         disposable.add(
             discoveryAPIService.getDiscovery()
@@ -141,7 +141,6 @@ class MainFragmentViewModel : ViewModel() {
 
 
     }
-
 
 
 }

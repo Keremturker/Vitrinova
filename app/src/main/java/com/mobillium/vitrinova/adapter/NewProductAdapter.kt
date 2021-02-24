@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Products
@@ -16,11 +17,12 @@ class NewProductAdapter(var context: Context?, var list: ArrayList<Products.Prod
     RecyclerView.Adapter<NewProductAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
-        val imgYeniUrun: ImageView = view.findViewById(R.id.imgYeniUrun)
+        val imgNewProduct: ImageView = view.findViewById(R.id.imgNewProduct)
         val txtTitle: TextView = view.findViewById(R.id.txtTitle)
-        val txtsubTitle: TextView = view.findViewById(R.id.txtsubTitle)
-        val txtFiyat: TextView = view.findViewById(R.id.txtFiyat)
-        val txtEskiFiyat: TextView = view.findViewById(R.id.txtEskiFiyat)
+        val txtSubTitle: TextView = view.findViewById(R.id.txtSubTitle)
+        val txtPrice: TextView = view.findViewById(R.id.txtPrice)
+        val txtOldPrice: TextView = view.findViewById(R.id.txtOldPrice)
+        val cvNewProduct: CardView = view.findViewById(R.id.cvNewProduct)
 
     }
 
@@ -56,17 +58,18 @@ class NewProductAdapter(var context: Context?, var list: ArrayList<Products.Prod
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.imgYeniUrun.downloadFromUrl(list[position].images[0].url)
+        setAnimation(holder.cvNewProduct)
+        holder.imgNewProduct.downloadFromUrl(list[position].images[0].url)
         holder.txtTitle.text = list[position].title
-        holder.txtsubTitle.text = list[position].shop.name
+        holder.txtSubTitle.text = list[position].shop.name
 
         list[position].priceInt?.let {
-            holder.txtFiyat.text = "$it TL"
+            holder.txtPrice.text = "$it TL"
         }
 
         list[position].old_price?.let {
 
-            holder.txtEskiFiyat.text = "$it TL"
+            holder.txtOldPrice.text = "$it TL"
         }
 
 
@@ -76,6 +79,15 @@ class NewProductAdapter(var context: Context?, var list: ArrayList<Products.Prod
         return list.size
     }
 
+    fun setAnimation(view: View) {
+
+        val anim = android.view.animation.AnimationUtils.loadAnimation(
+            context,
+            R.anim.item_animation_from_right
+        )
+        view.startAnimation(anim)
+
+    }
 
     fun updateList(newContext: Context?, newList: List<Products.ProductsList>) {
 

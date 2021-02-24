@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Categories
@@ -15,8 +16,9 @@ class CategoriesAdapter(var context: Context?, var list: ArrayList<Categories.Ca
     RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
-        val imgKategori: ImageView = view.findViewById(R.id.imgKategori)
-        val txtKategoriTitle: TextView = view.findViewById(R.id.txtCategoriesTitle)
+        val imgCategory: ImageView = view.findViewById(R.id.imgCategory)
+        val txtCategoryTitle: TextView = view.findViewById(R.id.txtCategoryTitle)
+        val cvCategory: CardView = view.findViewById(R.id.cvCategory)
 
 
     }
@@ -31,9 +33,10 @@ class CategoriesAdapter(var context: Context?, var list: ArrayList<Categories.Ca
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        setAnimation(holder.cvCategory)
 
-        holder.imgKategori.downloadFromUrl(list[position].logo.url)
-        holder.txtKategoriTitle.text = list[position].name
+        holder.imgCategory.downloadFromUrl(list[position].logo.url)
+        holder.txtCategoryTitle.text = list[position].name
 
     }
 
@@ -42,7 +45,7 @@ class CategoriesAdapter(var context: Context?, var list: ArrayList<Categories.Ca
         return list.size
     }
 
-    fun updateList(newContext:  Context?, newList: List<Categories.CategoriesList>) {
+    fun updateList(newContext: Context?, newList: List<Categories.CategoriesList>) {
 
         list.clear()
         list.addAll(newList)
@@ -50,6 +53,17 @@ class CategoriesAdapter(var context: Context?, var list: ArrayList<Categories.Ca
 
 
         notifyDataSetChanged()
+
+    }
+
+
+    fun setAnimation(view: View) {
+
+        val anim = android.view.animation.AnimationUtils.loadAnimation(
+            context,
+            R.anim.item_animation_from_right
+        )
+        view.startAnimation(anim)
 
     }
 }

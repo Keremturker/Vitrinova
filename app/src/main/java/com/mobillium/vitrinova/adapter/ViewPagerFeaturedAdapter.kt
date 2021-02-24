@@ -5,19 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.model.Featured
 import com.mobillium.vitrinova.util.downloadFromUrl
 
 class ViewPagerFeaturedAdapter(
-      var context: Context?,
-      var list: ArrayList<Featured.FeaturedList>
+    var context: Context?,
+    var list: ArrayList<Featured.FeaturedList>
 ) : PagerAdapter() {
     override fun getCount(): Int {
 
         return list.size
-        
+
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -27,12 +28,17 @@ class ViewPagerFeaturedAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_viewpager_featured, container, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.item_viewpager_featured, container, false)
 
         val imgSlider: ImageView = view.findViewById(R.id.imgSlider)
+        val txtFeaturedTitle: TextView = view.findViewById(R.id.txtFeaturedTitle)
+        val txtFeaturedSubTitle: TextView = view.findViewById(R.id.txtFeaturedSubTitle)
 
 
         imgSlider.downloadFromUrl(list[position].cover.url)
+        txtFeaturedTitle.text = list[position].title
+        txtFeaturedSubTitle.text = list[position].sub_title
 
         container.addView(view, position)
 
@@ -47,7 +53,7 @@ class ViewPagerFeaturedAdapter(
         container.removeView(`object` as View)
     }
 
-    fun updateList(newContext:  Context?,newList: List<Featured.FeaturedList>) {
+    fun updateList(newContext: Context?, newList: List<Featured.FeaturedList>) {
 
         list.clear()
         list.addAll(newList)

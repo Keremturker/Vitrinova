@@ -1,16 +1,10 @@
 package com.mobillium.vitrinova.util
 
-import android.util.Log
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.mobillium.vitrinova.R
 
 fun ImageView.downloadFromUrl(url: String?) {
-
 
 
     Glide.with(context)
@@ -21,8 +15,3 @@ fun ImageView.downloadFromUrl(url: String?) {
 
 }
 
-fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
-    val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION
-    val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
-    return layoutManager.getPosition(snapView)
-}

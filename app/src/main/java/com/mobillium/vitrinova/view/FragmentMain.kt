@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -21,7 +22,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.mobillium.vitrinova.R
 import com.mobillium.vitrinova.adapter.*
-import com.mobillium.vitrinova.util.downloadFromUrl
+import com.mobillium.vitrinova.util.DepthPageTransformer
+ import com.mobillium.vitrinova.util.downloadFromUrl
 import com.mobillium.vitrinova.viewmodel.MainFragmentViewModel
 
 
@@ -60,6 +62,9 @@ class FragmentMain : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var pbLoading: ProgressBar
 
+    private lateinit var clMainLayout: ConstraintLayout
+
+
     companion object {
         lateinit var dotsLayout: LinearLayout
 
@@ -84,7 +89,7 @@ class FragmentMain : Fragment() {
 
         dotsLayout = view.findViewById(R.id.dotsLayout)
         txtNewProductTitle = view.findViewById(R.id.txtNewProductTitle)
-        txtCategoriesTitle = view.findViewById(R.id.txtCategoriesTitle)
+        txtCategoriesTitle = view.findViewById(R.id.txtCategoryTitle)
         txtCollectionsTitle = view.findViewById(R.id.txtCollectionsTitle)
         txtEditorShopTitle = view.findViewById(R.id.txtEditorShopTitle)
         txtNewShopTitle = view.findViewById(R.id.txtNewShopTitle)
@@ -107,10 +112,14 @@ class FragmentMain : Fragment() {
         viewPagerFeatured = view.findViewById(R.id.viewPagerFeatured)
         viewPagerEditorShop = view.findViewById(R.id.viewPagerEditorShop)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
-        pbLoading = view.findViewById(R.id.pbLoaing)
+        pbLoading = view.findViewById(R.id.pbLoading)
+        clMainLayout = view.findViewById(R.id.clMainLayout)
+
+
 
 
         viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
+
         //endregion
 
 
@@ -140,6 +149,7 @@ class FragmentMain : Fragment() {
 
 
         viewPagerFeatured.adapter = adapterViewPagerFeatured
+        viewPagerFeatured.setPageTransformer(false, DepthPageTransformer())
         viewPagerEditorShop.adapter = adapterViewPagerEditorShop
 
         viewPagerEditorShop.currentItem = 0
@@ -218,7 +228,7 @@ class FragmentMain : Fragment() {
 
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US")
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "tr-TR")
             startActivityForResult(intent, 1)
 
         }
@@ -242,7 +252,6 @@ class FragmentMain : Fragment() {
             Navigation.findNavController(it).navigate(action)
 
         }
-
 
         txtEditorShopAll.setOnClickListener {
 
@@ -275,13 +284,14 @@ class FragmentMain : Fragment() {
             isLoading?.let {
 
                 if (it) {
-                    pbLoading.visibility = View.VISIBLE
-                    swipeRefreshLayout.visibility = View.GONE
 
+
+                    clMainLayout.visibility = View.GONE
+                    pbLoading.visibility = View.VISIBLE
 
                 } else {
-
                     pbLoading.visibility = View.GONE
+
                 }
 
             }
@@ -294,8 +304,11 @@ class FragmentMain : Fragment() {
 
                 if (it) {
 
-
-                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Veriler alınamadı. Lütfen tekrar deneyiniz!",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 }
             }
@@ -308,7 +321,7 @@ class FragmentMain : Fragment() {
             it?.let {
 
 
-                swipeRefreshLayout.visibility = View.VISIBLE
+                clMainLayout.visibility = View.VISIBLE
 
             }
 
@@ -321,7 +334,6 @@ class FragmentMain : Fragment() {
 
             featured?.let {
 
-                viewPagerFeatured.offscreenPageLimit = it.featured.size
 
                 adapterViewPagerFeatured.updateList(context, it.featured)
                 viewModel.prepareDots(requireContext(), 0, it.featured.size)

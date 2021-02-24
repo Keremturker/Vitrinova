@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgKoleksiyon"
+            android:id="@+id/imgCollection"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtKoleksiyonDefination"
+            android:id="@+id/txtCollectionDefinition"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

@@ -2,9 +2,9 @@
     <string name="app_name">Vitrinova</string>
     <string name="all_items">Tümü</string>
     <string name="search">Ürün veya vitrin ara</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="follow">Takip Et</string>
+    <string name="vitrinButton">Vitrine Git</string>
 
 
 </resources>

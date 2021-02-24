@@ -17,9 +17,9 @@ class CollectionsAdapter(var context: Context?, var list: ArrayList<Collections.
 
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
-        val imgKoleksiyon: ImageView = view.findViewById(R.id.imgKoleksiyon)
-        val txtKoleksiyonTitle: TextView = view.findViewById(R.id.txtCollectionsTitle)
-        val txtKoleksiyonDefination: TextView = view.findViewById(R.id.txtKoleksiyonDefination)
+        val imgCollection: ImageView = view.findViewById(R.id.imgCollection)
+        val txtCollectionsTitle: TextView = view.findViewById(R.id.txtCollectionsTitle)
+        val txtCollectionDefinition: TextView = view.findViewById(R.id.txtCollectionDefinition)
 
 
     }
@@ -36,9 +36,9 @@ class CollectionsAdapter(var context: Context?, var list: ArrayList<Collections.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.imgKoleksiyon.downloadFromUrl(list[position].cover.url)
-        holder.txtKoleksiyonTitle.text = list[position].title
-        holder.txtKoleksiyonDefination.text = list[position].definition
+        holder.imgCollection.downloadFromUrl(list[position].cover.url)
+        holder.txtCollectionsTitle.text = list[position].title
+        holder.txtCollectionDefinition.text = list[position].definition
 
 
     }
